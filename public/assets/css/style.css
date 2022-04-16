@@ -1,0 +1,48 @@
+html{
+    scroll-behavior: smooth!important;
+}
+h1{
+    color: red;
+}
+.temp-table th{
+    font-weight: normal!important;
+    /* color: rgba(0, 0, 0, 0.671)!important; */
+}
+.temp-table td{
+    text-align: center;
+}
+.temp-table td:nth-child(2){
+    text-align: left!important;
+}
+#category_card, #supplier_card{
+    cursor: pointer;
+}
+.card-wrapper{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.custom-dropdown{
+    /* border: 2px solid black; */
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5)!important;
+}
+.rotation{
+    /* transform: 0.5s; */
+    transform: rotate(180deg);
+}
+.category-list, .supplier-list{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+.category-list li, .supplier-list li{
+    padding: 5px;
+    /* margin-bottom: 5px; */
+    cursor: pointer;
+}
+.category-list li:hover, .supplier-list li:hover{
+    transform: scale(1.01);
+    background-color: rgba(0, 0, 0, 0.05);
+    /* box-shadow : 1px 1px 3px rgba(0,0,0,0.5); */
+
+}
+
