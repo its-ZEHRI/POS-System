@@ -14,6 +14,7 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::get('/home', [HomeController::class, 'index']);
     Route::get('purchase',[PurchaseController::class,'index']);
+    Route::get('/refreshPurchase',[TempProductController::class,'refresh']);
     Route::get('inventory',[InventoryController::class, 'index']);
 
     Route::group(['prefix'=>'/purchase'],function(){

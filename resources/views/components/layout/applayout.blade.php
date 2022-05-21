@@ -9,6 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="{{asset('assets/images/imac1.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -96,6 +97,7 @@
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{asset('demo/demo.js')}}"></script>
     <script src="{{asset('assets/js/app.js')}}"></script>
+    <script src="{{asset('assets/js/appAjax.js')}}"></script>
 
 </body>
 

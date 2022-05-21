@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button id="" type="submit" class="btn  btn-primary center">Enter</button>
+                            <button id="" type="submit" class="c-btn c-btn-primary center">Enter</button>
                         </div>
                     {{-- <div class="clearfix"></div> --}}
                     </div>

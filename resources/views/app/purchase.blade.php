@@ -32,10 +32,18 @@
             }
         </script>
     @endif
+    <div id="alert">
+        <button id="save_alert" class="d-none"
+            onclick="md.showNotification('top','center','Save Successfully...!','success')"></button>
+        <button id="delete_alert" class="d-none"
+            onclick="md.showNotification('top','center','Deleted Successfully...!','danger')"></button>
+            <button id="update_alert" class="d-none"
+            onclick="md.showNotification('top','center','Updated Successfully...!','info')"></button>
+    </div>
     <div class="container-fluid">
         <div class="row" id="top">
             <div class="col-md-8">
-                <form action="/purchase/tempCreateData" method="POST" id="data_entry_form">
+                <form  id="data_entry_form">
                     @csrf
                     <input id="temp_p_id_field" type="hidden" name="p_id">
                     <input id="temp_category_field"  type="hidden" name="category_id">
@@ -44,7 +52,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mt-3">
-                                    <h5 class="text-primary" style="font-weight: normal"><span class="mr-2">S-NO </span>{{count($temp_products)+1}}</h5>
+                                    {{-- <h5 class="text-primary" style="font-weight: normal"><span class="mr-2">S-NO </span>{{count($temp_products)+1}}</h5> --}}
+                                    <h5 class="text-primary" style="font-weight: normal"><span class="mr-2">S-NO </span><span id="s_no">{{count($temp_products)+1}}</span></h5>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -148,7 +157,8 @@
 
                     </div>
                     <hr>
-                    <button id="purchase_form_btn" type="submit" class="btn btn-primary pull-right">Enter</button>
+                    <button id="purchase_form_btn" type="submit" class="c-btn c-btn-primary pull-right">Enter</button>
+                    <button id="purchase_form_clear_btn" class="c-btn c-btn-secondary pull-right mr-3">Clear</button>
                     <div class="clearfix"></div>
                 </form>
             </x-utilities.banner>
@@ -160,19 +170,39 @@
                             <img class="img" src="../assets/img/faces/marc.jpg" />
                         </a>
                     </div> --}}
-                    <div class="card-body">
+                    <div class="card-body payment-card">
                         {{-- <h6 class="card-category text-gray">CEO / Co-Founder</h6> --}}
-                        <h4 class="card-title text-left ">Payment</h4>
-                        <div>
-                            <p>Total Amount : <span id="total_amount">0/-</span></p>
-                            <p>Discount : <span>1500/-</span></p>
-                            <p>Net Amount : <span>1500/-</span></p>
-                            <p>Balance : <span>1500/-</span></p>
-                            <p>Paid : <span>1500/-</span></p>
+                        <h4 class="card-title m-0 text-left ">Payment</h4>
+                        <hr class="m-0">
+                        <div class="px-4">
+                            <div>
+                                <p>Total Amount</p>
+                                <p id="total_amount">0/-</p>
+                            </div>
+                            <div>
+                                <p>Discount</p>
+                                <p id="">0/-</p>
+                            </div>
+                            <div>
+                                <p>Net Amount</p>
+                                <p id="">0/-</p>
+                            </div>
+                            <div>
+                                <p>Balance</p>
+                                <p id="">0/-</p>
+                            </div>
+                            <div>
+                                <p>Paid</p>
+                                <p id="">0/-</p>
+                            </div>
+                            <div>
+                                <p>Discount</p>
+                                <p id="">0/-</p>
+                            </div>
                         <p class="card-description">
                         </p>
                     </div>
-                        <a href="#pablo" class="btn btn-primary btn-round">Save</a>
+                        <a href="#pablo" class="c-btn c-btn-primary">Save</a>
                     </div>
                 </div>
             </div>
@@ -201,8 +231,8 @@
                                 <th colspan="2" class="text-center">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="ttt">
-                            @foreach ($temp_products as $product )
+                        <tbody>
+                            {{-- @foreach ($temp_products as $product )
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$product->product_name}}</td>
@@ -225,7 +255,7 @@
                             </td>
                                 <td> <a href="purchase/destroy/{{$product->id}}"><i style="font-size: 20px" class="text-rose fa-solid fa-trash-can"></i></a></td>
                             </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                   </div>
