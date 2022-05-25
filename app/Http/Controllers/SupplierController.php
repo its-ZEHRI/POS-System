@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TempProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
-class InventoryController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $user = User::find(Auth::User()->id);
-        // $products = TempProduct::where('user_id',Auth::User()->id)->get();
-        return view('app.inventory')->with('products',$user->temp_products);
+        return view('app.supplier');
     }
 
     /**
@@ -28,7 +23,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        //
+        dd('supplier');
     }
 
     /**

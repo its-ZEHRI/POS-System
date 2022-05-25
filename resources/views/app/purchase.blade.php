@@ -1,4 +1,4 @@
-<x-layout.applayout  noFooter>
+<x-layout.applayout>
     <x-slot name="sidebar">
         <x-layoutUtilities.sidebar>
         </x-layoutUtilities.sidebar>
@@ -8,38 +8,19 @@
         </x-layoutUtilities.header>
     </x-slot>
     {{-- ***** SLOT START ***** --}}
-    @if(Session::has('success_response'))
-        <div class="">
-            <button id="btn2" class="d-none"
-            onclick="md.showNotification('top','center','{{Session::get('success_response')}}','success')"></button>
-        </div>
-        <script>
-            window.onload = function(){
-            let button = document.getElementById('btn2');
-            button.onclick();
-            }
-        </script>
-    @endif
-    @if(Session::has('invalid_response'))
-        <div class="">
-            <button id="btn2" class="d-none"
-            onclick="md.showNotification('top','center','{{Session::get('invalid_response')}}','rose')"></button>
-        </div>
-        <script>
-            window.onload = function(){
-            let button = document.getElementById('btn2');
-            button.onclick();
-            }
-        </script>
-    @endif
+
+    {{--==========> ALERTS <==========--}}
     <div id="alert">
         <button id="save_alert" class="d-none"
             onclick="md.showNotification('top','center','Save Successfully...!','success')"></button>
         <button id="delete_alert" class="d-none"
             onclick="md.showNotification('top','center','Deleted Successfully...!','danger')"></button>
-            <button id="update_alert" class="d-none"
-            onclick="md.showNotification('top','center','Updated Successfully...!','info')"></button>
+        <button id="update_alert" class="d-none"
+        onclick="md.showNotification('top','center','Updated Successfully...!','info')"></button>
     </div>
+    {{--==========> ALERTS <==========--}}
+
+
     <div class="container-fluid">
         <div class="row" id="top">
             <div class="col-md-8">

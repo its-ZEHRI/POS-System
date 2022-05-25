@@ -33,32 +33,33 @@
     </style>
 </head>
 <body>
-    @if(!$login){
+    @if(!$login)
         <div class="wrapper">
             @unless ($noSideBar)
                 {{$sidebar}}
             @endunless
             <div class="main-panel">
                 @unless ($noHeader)
-                {{$header}}
+                    {{$header}}
                 @endunless
                 <div class="content">
                     {{$slot}}
                 </div>
                 @unless ($noFooter)
-                {{$footer}}
+                    {{$footer}}
                 @endunless
             </div>
         </div>
         @unless ($nofixedplugin)
             {{$fixed_plugin}}
         @endunless
-    }
     @else
         <div>
             {{$slot}}
         </div>
     @endif
+
+
     <!--   Core JS Files   -->
     <script src="{{asset('js/core/jquery.min.js')}}"></script>
     <script src="{{asset('js/core/popper.min.js')}}"></script>

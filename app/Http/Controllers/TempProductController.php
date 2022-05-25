@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TempProduct;
 use Illuminate\Support\Facades\Auth;
+use app\Models\User;
 
 class TempProductController extends Controller
 {
@@ -50,10 +51,10 @@ class TempProductController extends Controller
     }
 
     public function refresh(){
-        $product = TempProduct::all();
+        $user = User::find(Auth::user()->id);
         return response()->json([
             'message' => 'data get successfully',
-            'products' => $product
+            'products' => $user->temp_products,
         ]);
     }
 

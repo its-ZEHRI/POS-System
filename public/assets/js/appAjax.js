@@ -101,7 +101,7 @@ $(document).ready(function () {
                 $('#temp_table tbody').html('');
                 $.each(response.products, function (key, item) {
                     $('#temp_table').append('<tr>\
-                        <td> '+key              +'  </td>\
+                        <td> '+(key + 1)        +'  </td>\
                         <td> '+item.product_name+'  </td>\
                         <td> '+item.p_code      +'  </td>\
                         <td> '+item.p_price     +'/-</td>\

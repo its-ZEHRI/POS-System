@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TempProductController;
 
 Auth::routes();
@@ -13,6 +14,7 @@ Auth::routes();
 Route::group(['middleware'=>['auth']],function(){
     Route::get('/dashboard',        [DashboardController::class,   'index'  ]);
     Route::get('/purchase',         [PurchaseController::class,    'index'  ]);
+    Route::get('/supplier',         [SupplierController::class,    'index'  ]);
     Route::get('/refreshPurchase',  [TempProductController::class, 'refresh']);
     Route::get('/inventory',        [InventoryController::class,   'index'  ]);
 
@@ -20,6 +22,10 @@ Route::group(['middleware'=>['auth']],function(){
         Route::post('/tempCreateData',  [TempProductController::class, 'tempCreate' ]);
         Route::post('/tempUpdateData',  [TempProductController::class, 'tempUpdate' ]);
         Route::get ('/destroy/{id}',    [TempProductController::class, 'destroy'    ]);
+    });
+
+    Route::group(['prefix' => '/supplier'],function(){
+
     });
 
     Route::group(['prefix'=> '/setting'],function(){
