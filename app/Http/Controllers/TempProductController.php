@@ -124,8 +124,6 @@ class TempProductController extends Controller
 
         // $product->delete();
         // return back()->with('success_response','Product Deleted...');
-
-
     }
 
 
