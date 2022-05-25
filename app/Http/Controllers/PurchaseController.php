@@ -17,8 +17,8 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $id = Auth::User()->id;
-        $user = User::find($id);
+        $user = Auth::user();
+        // $user = User::find($id);
         // return $user->users;
         // $temp_products = TempProduct::where('user_id', $id)->get();
         // $categories = Category::where('user_id', $id)->get();

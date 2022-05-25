@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TempProduct;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class TempProductController extends Controller
 {
@@ -50,7 +51,9 @@ class TempProductController extends Controller
     }
 
     public function refresh(){
-        $product = TempProduct::all();
+        $id = Auth::User()->id;
+        $user = User::find($id);
+        $product = $user->temp_products;
         return response()->json([
             'message' => 'data get successfully',
             'products' => $product
@@ -72,7 +75,8 @@ class TempProductController extends Controller
         // ]);
         // dd($request->all)->toArray();
         $tempProduct = TempProduct::find($request->id);
-        // return response()->json([
+        if($tempProduct->user_id == Auth::User()->id)
+        {// return response()->json([
         //     'status' => 200,
         //     'id' => $tempProduct->product_name
         // ]);
@@ -89,6 +93,13 @@ class TempProductController extends Controller
             'status' => 200,
             'message' => 'Updated Successfully..!'
         ]);
+    }
+    else{
+        return response()->json([
+            'status'  => 400 ,
+            'message' => 'You cannot Edit this Product..!!'
+        ]);
+    }
         // return redirect('purchase')->with('success_response','Updated Successfully...');
     }
 

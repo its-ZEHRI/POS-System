@@ -5,9 +5,10 @@ $(document).ready(function () {
         headers: {'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')}
     })
 
+
     // ENTRY FORM OF PURCHASE
-    $(this).on('click', '#purchase_form_btn', function (e) {
-        e.preventDefault();
+    $(this).on('click', '#purchase_form_btn', function (event) {
+        event.preventDefault();``
         // var formdata = new FormData(this);
         var data = {
             'product_name': $('#temp_p_name_field').val(),
@@ -41,6 +42,8 @@ $(document).ready(function () {
         })  // END OF AJAX
     }) // END OF ENTRY FORM OF PURCHASE
 
+
+
     //  UPDATE FORM OF PURCHASE
     $(this).on('click', '#purchase_form_update_btn', function (event) {
         event.preventDefault()
@@ -60,19 +63,28 @@ $(document).ready(function () {
             data: FormData,
             success: function (response) {
                 if (response.status == 200)
+                {
                     refresh()
                     $('#data_entry_form')[0].reset()
                     $('#update_alert').click();
                     $('#purchase_form_update_btn'  ).text('Save');
                     $('#purchase_form_update_btn').attr('id', 'purchase_form_btn');
                     resetForm()
+                }
+                    if(response.status == 400){
+                        $('#invalid_update_alert').click()
+                        $('#data_entry_form')[0].reset()
+                        resetForm();
+                    }
             },
+            
             error: function (response) {
                 alert('Ajax function Error...!!')
             }
-
         }) // END OF AJAX
     }) // END OF UPDATE FORM OF PURCHASE
+
+
 
     $(this).on('click', '.temp_delete_btn', function () {
         var id = $(this).val();
@@ -82,14 +94,13 @@ $(document).ready(function () {
             url: '/purchase/destroy/' + id,
             success: function (response) {
                 if (response.status == 400) {
-                    alert(response.message)
+                    $('#invalid_alert').click()
                 }
                 else if (response.status == 200) {
                     refresh()
                     $('#delete_alert').click();
                 }
             }
-
         })//END OF AJAX
     })//END OF DELETE
 
@@ -101,7 +112,7 @@ $(document).ready(function () {
                 $('#temp_table tbody').html('');
                 $.each(response.products, function (key, item) {
                     $('#temp_table').append('<tr>\
-                        <td> '+key              +'  </td>\
+                        <td> '+(key+1)              +'  </td>\
                         <td> '+item.product_name+'  </td>\
                         <td> '+item.p_code      +'  </td>\
                         <td> '+item.p_price     +'/-</td>\
@@ -109,7 +120,7 @@ $(document).ready(function () {
                         <td> '+item.s_price     +'/-</td>\
                         <td> '+item.quantity    +'  </td>\
                         <td class="d-none">'+item.id+'</td>\
-                        <td>'+"<a href='#top'><i id='' style='font-size: 20px' class='temp_edit_btn text-info fa-solid fa-pen-to-square'></i>"+'</td>\
+                        <td>'+"<a href='#top'><i  style='font-size: 20px' class='temp_edit_btn text-info fa-solid fa-pen-to-square'></i>"+'</td>\
                         <td>'+'<button value="'+item.id+'" class="temp_delete_btn">\
                             <i style = "font-size: 20px" class= "text-rose fa-solid fa-trash-can" ></i>\
                             </button>'+'</td >\
@@ -118,6 +129,8 @@ $(document).ready(function () {
             }
         })//END OF AJAX
     }//END OF REFRESH
+
+
 
     // RESET ALL THE INPUT FIELD OF DATA ENTRY FORM
     function resetForm() {

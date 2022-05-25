@@ -8,7 +8,7 @@
         </x-layoutUtilities.header>
     </x-slot>
     {{-- ***** SLOT START ***** --}}
-    @if(Session::has('success_response'))
+    {{-- @if(Session::has('success_response'))
         <div class="">
             <button id="btn2" class="d-none"
             onclick="md.showNotification('top','center','{{Session::get('success_response')}}','success')"></button>
@@ -31,7 +31,7 @@
             button.onclick();
             }
         </script>
-    @endif
+    @endif --}}
     <div id="alert">
         <button id="save_alert" class="d-none"
             onclick="md.showNotification('top','center','Save Successfully...!','success')"></button>
@@ -39,7 +39,12 @@
             onclick="md.showNotification('top','center','Deleted Successfully...!','danger')"></button>
             <button id="update_alert" class="d-none"
             onclick="md.showNotification('top','center','Updated Successfully...!','info')"></button>
-    </div>
+            <button id="invalid_alert" class="d-none"
+            onclick="md.showNotification('top','center','You cannot Delete this Product!','danger')"></button>
+            <button id="invalid_update_alert" class="d-none"
+            onclick="md.showNotification('top','center','You cannot Edit this Product!','danger')"></button>
+        
+     </div>
     <div class="container-fluid">
         <div class="row" id="top">
             <div class="col-md-8">
