@@ -21,9 +21,11 @@ class CreateTempProductsTable extends Migration
             $table->integer('ws_price');
             $table->integer('s_price');
             $table->integer('quantity');
-            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('user_id');
             $table->string('category_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('supplier_id');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

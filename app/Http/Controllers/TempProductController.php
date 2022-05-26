@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\TempProduct;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +15,11 @@ class TempProductController extends Controller
         $request->validate([
             'product_name'  => 'required',
             'p_price'       => 'required|integer',
-            'ws_price'      => 'required',
-            's_price'       => 'required',
-            'quantity'      => 'required',
-            'category_id'   => 'required',
+            'ws_price'      => 'required|integer',
+            's_price'       => 'required|integer',
+            'quantity'      => 'required|integer',
+            'category_id'   => 'required|integer',
+            'supplier_id'   => 'required|integer',
         ]);
 
         $tempProduct = new TempProduct;
@@ -30,8 +32,9 @@ class TempProductController extends Controller
         $tempProduct->ws_price     = $request->input('ws_price');
         $tempProduct->s_price      = $request->input('s_price');
         $tempProduct->quantity     = $request->input('quantity');
-        $tempProduct->user_id      = Auth::User()->id;
         $tempProduct->category_id  = $request->input('category_id');
+        $tempProduct->supplier_id  = $request->input('supplier_id');
+        $tempProduct->user_id      = Auth::User()->id;
         $tempProduct->save();
 
         if($tempProduct){
@@ -51,12 +54,15 @@ class TempProductController extends Controller
     }
 
     public function refresh(){
-        $id = Auth::User()->id;
-        $user = User::find($id);
-        $product = $user->temp_products;
+        $user = User::find(Auth::user()->id);
+        $products = $user->temp_products;
+        // $products = TempProduct::with('categories')->where('user_id',Auth::user()->id)->get();
+        // $category = Category::w('id', $products->category_id);
         return response()->json([
-            'message' => 'data get successfully',
-            'products' => $product
+            'status'     => 200,
+            'message'    => 'data get successfully',
+            'products'   => $products,
+            // 'categories' => $category,
         ]);
     }
 

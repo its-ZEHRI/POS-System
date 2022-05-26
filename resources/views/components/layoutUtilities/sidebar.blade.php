@@ -36,6 +36,12 @@
                         <p>Accounts</p>
                     </a>
                 </li>
+                <li class="nav-item {{request()->path() == 'supplier' ? 'active' : ''}}">
+                    <a class="nav-link" href="/supplier">
+                        <i class="material-icons">library_books</i>
+                        <p>Supplier</p>
+                    </a>
+                </li>
                 <li class="nav-item {{request()->path() == 'setting' ? 'active' : ''}}">
                     <a class="nav-link" href="/setting">
                         <i class="material-icons">bubble_chart</i>

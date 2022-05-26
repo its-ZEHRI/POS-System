@@ -16,8 +16,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $id = Auth::User()->id;
-        $user = User::find($id);
+        $user = User::find(Auth::User()->id);
         // $products = TempProduct::where('user_id',Auth::User()->id)->get();
         return view('app.inventory')->with('products',$user->temp_products);
     }

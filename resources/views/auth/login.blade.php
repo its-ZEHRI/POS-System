@@ -72,13 +72,12 @@
 {{-- @endsection --}}
 
 <x-layout.applayout login>
-    <div style="height: 4rem" class="bg-dark"></div>
-    <div class="container p-0 mt-5 login-form rounded" style="">
+    {{-- <div style="height: 4rem" class="bg-dark"></div> --}}
+    <div class="container p-0  login-form rounded" style="">
         <h2 class="text-primary">Login</h2>
         <hr class="m-0">
-        <form method="POST" action="{{ route('login') }}" class="p-4">
+        <form method="POST" action="{{ route('login') }}" class="px-5 pt-3">
             @csrf
-
             <div class="form-group">
                 <label for="email" class="bmd-label-floating">{{ __('Email Address') }}</label>
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -88,7 +87,6 @@
                     </span>
                 @enderror
             </div>
-
             <div class="form-group">
                 <label for="password" class="bmd-label-floating">{{ __('Password') }}</label>
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -113,9 +111,9 @@
                 </div>
             </div>
 
-
-            <div class="mb-0">
-                <button type="submit" class="btn btn-primary pull-right">
+            <div class="mb-0 mt-4 d-flex justify-content-between align-items-center">
+                <a class="mt-3 d-block" style="font-size: 14px" href="/register">Don't have an account</a>
+                <button type="submit" class="btn btn-primary pull-righ">
                     {{ __('Login') }}
                 </button>
             </div>
