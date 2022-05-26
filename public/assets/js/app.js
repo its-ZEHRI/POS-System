@@ -8,13 +8,7 @@ $(document).ready(function () {
     $('#supplier_card + div').removeClass('d-none');
     // END
 
-    // GETTING THE VALUES FROM TABLE FOR DISPLAY TO USER
-    $('#temp_table .col_price').each(function () {
-        var total = parseInt($('#total_amount').text().slice(0, -2));
-        total = parseInt($(this).text().slice(0,-2)) + total;
-        $('#total_amount').text(total + "/-");
-    });
-    // END
+
 
     // FIXED FLUGIN
     $(this).on('click', '#purple', function () {
@@ -169,6 +163,12 @@ $(document).ready(function () {
     });
     // END
 
+    // WHEN USER SELECT SUPPLIER
+    $(this).on('click', '.selected_supplier', function () {
+        $('#temp_supplier_field').val($(this).children('span').text());
+    });
+    // END
+
     // CLEAR THE PURCHASE FORM
     $(this).on('click', '#purchase_form_clear_btn', function (event) {
         event.preventDefault()
@@ -183,5 +183,52 @@ $(document).ready(function () {
         $('#purchase_form_update_btn'  ).attr('id', 'purchase_form_btn')
     })
     // END
+
+    // PAYMENT CARD FUNCTIONALITY
+    $(this).on('click', '#discount', function () {
+        $(this).val('')
+    })
+    $(this).on('focusout', '#discount', function () {
+        if ($(this).val() == '')
+            $(this).val('0/-')
+        else
+            $(this).val($(this).val()+'/-')
+    })
+    // ---------------------------------
+    $(this).on('click', '#net_amount', function () {
+        $(this).val('')
+    })
+    $(this).on('focusout', '#net_amount', function () {
+        if ($(this).val() == '')
+            $(this).val('0/-')
+        else
+            $(this).val($(this).val()+'/-')
+    })
+    // ---------------------------------
+    $(this).on('click', '#balance', function () {
+        $(this).val('')
+    })
+    $(this).on('focusout', '#balance', function () {
+        if ($(this).val() == '')
+            $(this).val('0/-')
+        else
+            $(this).val($(this).val()+'/-')
+    })
+    // ---------------------------------
+    $(this).on('click', '#paid', function () {
+        $(this).val('')
+    })
+    $(this).on('focusout', '#paid', function () {
+        if ($(this).val() == '')
+            $(this).val('0/-')
+        else
+            $(this).val($(this).val()+'/-')
+    })
+
+
+    // END
+
+
+
 
 }); //END OF READY

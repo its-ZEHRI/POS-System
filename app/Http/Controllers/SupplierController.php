@@ -3,82 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Supplier;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('app.supplier');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        dd('supplier');
-    }
+    public function create(Request $request){
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $supplier = new Supplier;
+        $supplier->name = $request->input('name');
+        if($request->input('contact') == '')
+            $supplier->contact = 'N/A';
+        else
+            $supplier->contact = $request->input('contact');
+        if($request->input('address') == '')
+            $supplier->address = 'N/A';
+        else
+            $supplier->address = $request->input('address');
+        $supplier->user_id = Auth::user()->id;
+        $supplier->save();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        if($supplier){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Supplier Created Successfully...!'
+            ]);
+        }
+        return response()->json([
+            'status' => 400,
+            'message' => 'Error...!'
+        ]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function refresh(){
+        $user = User::find(Auth::user()->id);
+        return response()->json([
+            'status' => 200,
+            'suppliers' => $user->suppliers
+        ]);
     }
 }

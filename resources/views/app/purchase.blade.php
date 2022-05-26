@@ -7,7 +7,7 @@
         <x-layoutUtilities.header>
         </x-layoutUtilities.header>
     </x-slot>
-    {{-- ***** SLOT START ***** --}}
+    {{--==========> SLOT START  ==========>--}}
 
     {{--==========> ALERTS <==========--}}
     <div id="alert">
@@ -17,18 +17,21 @@
             onclick="md.showNotification('top','center','Deleted Successfully...!','danger')"></button>
         <button id="update_alert" class="d-none"
         onclick="md.showNotification('top','center','Updated Successfully...!','info')"></button>
+        <button id="error_alert" class="d-none"
+        onclick="md.showNotification('top','center','<h3 style='+'display:inline'+'>Error...! </h3>','danger')"></button>
     </div>
     {{--==========> ALERTS <==========--}}
 
 
+    {{--==========> ADD PRODUCTS FORM <==========--}}
     <div class="container-fluid">
         <div class="row" id="top">
             <div class="col-md-8">
-                <form  id="data_entry_form">
+                <form id="data_entry_form">
                     @csrf
                     <input id="temp_p_id_field" type="hidden" name="p_id">
                     <input id="temp_category_field"  type="hidden" name="category_id">
-                    {{-- <input id="temp_supplier_field"  type="hidden" name="supplier"> --}}
+                    <input id="temp_supplier_field"  type="hidden" name="supplier_id">
                 <x-utilities.banner title="Add Products" date="{{now()->format('d/m/y ')}}" subtitle="">
                         <div class="row">
                             <div class="col-md-4">
@@ -37,9 +40,9 @@
                                     <h5 class="text-primary" style="font-weight: normal"><span class="mr-2">S-NO </span><span id="s_no">{{count($temp_products)+1}}</span></h5>
                                 </div>
                             </div>
+                            {{-- <====> CATEGORY DROPDOWN <=====> --}}
                             <div class="col-md-4">
-                                <div class="container-flui"
-                                style=" @error('category_id') {{'border-bottom: 4px solid red'}} @enderror">
+                                <div style=" @error('category_id') {{'border-bottom: 4px solid red'}} @enderror">
                                     <div class="card card-plain mb-0 mt-4 p-0" style="position: relative">
                                         <div id="category_card" class="card-header card-header-primary d-flex justify-content-between align-items-center" style="padding: 5px 15px 3px 15px">
                                             <h5 style="height: 1.5rem; overflow-y:hidden; width:90%"
@@ -62,8 +65,9 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- <====> SUPPLIER DROPDOWN <=====> --}}
                             <div class="col-md-4">
-                                <div class="container-flui">
+                                <div>
                                     <div class="card card-plain mb-0 mt-4 p-0" style="position: relative">
                                         <div id="supplier_card" class="card-header card-header-primary d-flex justify-content-between align-items-center" style="padding: 5px 15px 3px 15px">
                                             <h5 style="height: 1.5rem; overflow-y:hidden; width:90%"
@@ -73,16 +77,14 @@
                                         <div class="card-body card-wrapper d-none bg-white rounded w-100 custom-dropdown"
                                              style="position: absolute; top:15px; z-index:111">
                                         <ul class="supplier-list">
-                                            <div class="supp_list">
-                                                <li class="supp">Suplier 1</li>
-                                            </div>
-                                            <div class="supp_list">
-                                                <li class="supp">Suplier 2</li>
-                                            </div>
-                                            <div class="supp_list">
-                                                <li class="supp">Suplier 3</li>
-                                            </div>
-
+                                            @forelse($suppliers as $supplier)
+                                                <div class="supp_list selected_supplier">
+                                                    <span class="d-none">{{$supplier->id}}</span>
+                                                    <li class="supp">{{$supplier->name}}</li>
+                                                </div>
+                                            @empty
+                                                <li>No Supplier found</li>
+                                            @endforelse
                                         </ul>
                                     </div>
                                 </div>
@@ -144,51 +146,44 @@
                 </form>
             </x-utilities.banner>
             </div>
+            {{-- PAYMENT CARD --}}
             <div class="col-md-4">
                 <div class="card card-profile">
-                    {{-- <div class="card-avatar">
-                        <a href="#pablo">
-                            <img class="img" src="../assets/img/faces/marc.jpg" />
-                        </a>
-                    </div> --}}
                     <div class="card-body payment-card">
-                        {{-- <h6 class="card-category text-gray">CEO / Co-Founder</h6> --}}
-                        <h4 class="card-title m-0 text-left ">Payment</h4>
+                        <h3 class="card-title m-0 text-left text-primary ">Payment</h3>
                         <hr class="m-0">
-                        <div class="px-4">
-                            <div>
-                                <p>Total Amount</p>
-                                <p id="total_amount">0/-</p>
-                            </div>
-                            <div>
-                                <p>Discount</p>
-                                <p id="">0/-</p>
-                            </div>
-                            <div>
-                                <p>Net Amount</p>
-                                <p id="">0/-</p>
-                            </div>
-                            <div>
-                                <p>Balance</p>
-                                <p id="">0/-</p>
-                            </div>
-                            <div>
-                                <p>Paid</p>
-                                <p id="">0/-</p>
-                            </div>
-                            <div>
-                                <p>Discount</p>
-                                <p id="">0/-</p>
-                            </div>
-                        <p class="card-description">
-                        </p>
-                    </div>
-                        <a href="#pablo" class="c-btn c-btn-primary">Save</a>
+                        <div class="px-4 mt-3">
+                            <form action="">
+                                <div class="payment-card-field">
+                                    <p class="m-0">Total Amount</p>
+                                    <input type="text" id="total_amount" class="form-control" name="" value="0/-">
+                                </div>
+                                <div class="payment-card-field">
+                                    <p class="m-0">Discount</p>
+                                    <input type="text" id="discount" class="form-control" name="" value="0/-">
+                                </div>
+                                <div class="payment-card-field">
+                                    <p class="m-0">Net Amount</p>
+                                    <input type="text" id="net_amount" class="form-control" name="" value="0/-">
+                                </div>
+                                <div class="payment-card-field">
+                                    <p class="m-0">Balance</p>
+                                    <input type="text" id="balance" class="form-control" name="" value="0/-">
+                                </div>
+                                <div class="payment-card-field">
+                                    <p class="m-0">Paid</p>
+                                    <input type="text" id="paid" class="form-control" name="" value="0/-">
+                                </div>
+                                <button id="" type="submit" class="c-btn c-btn-primary pull-center">Save</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {{--==========> TABLE OF TEMP PRODUCT <==========--}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -249,11 +244,14 @@
             <h4>payment</h4>
         </x-utilities.banner>
 
-    {{-- *****  SLOT END  ****** --}}
+
+    {{--==========>  SLOT END  ==========>--}}
+
     <x-slot name="footer">
         <x-layoutUtilities.footer>
         </x-layoutUtilities.footer>
     </x-slot>
+
     <x-slot name="fixed_plugin">
         <x-layoutUtilities.fixedPlugin>
         </x-layoutUtilities.fixedPlugin>

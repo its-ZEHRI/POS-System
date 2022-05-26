@@ -1,11 +1,19 @@
+/* CUSTOM STYLE SHEET */
 :root{
     --violet-color : #8e24aa;
 }
 html{
     scroll-behavior: smooth!important;
 }
-
+.login-page{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(144,36,162,0.4) 0%, rgba(127,127,150,0.4290091036414566) 50%, rgba(144,36,162,0.4) 100%);
+}
 .login-form{
+    background-color: whitesmoke;
     max-width: 500px;
     box-shadow: 0 2px 2px 0 rgb(156 39 176 / 14%), 0 3px 1px -2px rgb(156 39 176 / 20%), 0 1px 5px 0 rgb(156 39 176 / 12%);
 }
@@ -105,7 +113,25 @@ html{
 .temp_delete_btn:focus{
     outline: none;
 }
-
+.payment-card-field{
+    border-bottom: 0.5px solid rgba(0,0,0,0.08) ;
+    /* box-shadow: 0 4px 10px 0px rgb(0 0 0 / 14%), 0 7px 5px -5px rgb(156 39 176 / 40%); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+.payment-card-field p{
+    font-size: 16px;
+}
+.payment-card-field input{
+    font-size: 18px;
+    width: 6rem;
+    text-align: center;
+}
+.disabled{
+    pointer-events: none;
+}
 /* ************************************************* */
 
 

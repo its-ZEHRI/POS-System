@@ -54,7 +54,7 @@
             {{$fixed_plugin}}
         @endunless
     @else
-        <div>
+        <div class="login-page">
             {{$slot}}
         </div>
     @endif

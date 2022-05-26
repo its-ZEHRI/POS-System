@@ -16,6 +16,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/purchase',         [PurchaseController::class,    'index'  ]);
     Route::get('/supplier',         [SupplierController::class,    'index'  ]);
     Route::get('/refreshPurchase',  [TempProductController::class, 'refresh']);
+    Route::get('/refreshSupplier',  [SupplierController::class,    'refresh']);
     Route::get('/inventory',        [InventoryController::class,   'index'  ]);
 
     Route::group(['prefix'=>'/purchase'],function(){
@@ -25,7 +26,7 @@ Route::group(['middleware'=>['auth']],function(){
     });
 
     Route::group(['prefix' => '/supplier'],function(){
-
+        Route::post('/createSupplier',  [SupplierController::class, 'create' ]);
     });
 
     Route::group(['prefix'=> '/setting'],function(){

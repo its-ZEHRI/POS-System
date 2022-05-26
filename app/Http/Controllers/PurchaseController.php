@@ -17,15 +17,11 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $id = Auth::User()->id;
-        $user = User::find($id);
-        // return $user->users;
-        // $temp_products = TempProduct::where('user_id', $id)->get();
-        // $categories = Category::where('user_id', $id)->get();
-        // return view('app.purchase')->with('categories',$user->categories);
+        $user = User::find(Auth::User()->id);
         return view('app.purchase')
                ->with('temp_products', $user->temp_products)
-               ->with('categories', $user->categories);
+               ->with('categories'   , $user->categories)
+               ->with('suppliers'    , $user->suppliers);
     }
 
 
