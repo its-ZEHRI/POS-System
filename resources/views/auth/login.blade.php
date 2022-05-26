@@ -1,7 +1,6 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
+{{-- @extends('layouts.app') --}}
+{{-- @section('content') --}}
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -69,5 +68,60 @@
             </div>
         </div>
     </div>
-</div>
-@endsection
+</div> --}}
+{{-- @endsection --}}
+
+<x-layout.applayout login>
+    <div style="height: 4rem" class="bg-dark"></div>
+    <div class="container p-0 mt-5 login-form rounded" style="">
+        <h2 class="text-primary">Login</h2>
+        <hr class="m-0">
+        <form method="POST" action="{{ route('login') }}" class="p-4">
+            @csrf
+
+            <div class="form-group">
+                <label for="email" class="bmd-label-floating">{{ __('Email Address') }}</label>
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="bmd-label-floating">{{ __('Password') }}</label>
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            @if (Route::has('password.request'))
+                <a class="btn btn-link text-dar  pull-right" style="padding: 0px" href="{{ route('password.request') }}">
+                    {{ __('Forgot Your Password?') }}
+                </a>
+            @endif
+
+            <div class="my-3 ">
+                <div class="form-check">
+                    <input class="form-check-inpu m-0" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="form-check-label text-dar" style="padding-left: 10px"  for="remember">
+                        {{ __('Remember Me') }}
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="mb-0">
+                <button type="submit" class="btn btn-primary pull-right">
+                    {{ __('Login') }}
+                </button>
+            </div>
+
+            <div class="clearfix"></div>
+        </form>
+    </div>
+
+</x-layout.applayout>

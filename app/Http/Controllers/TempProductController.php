@@ -87,7 +87,7 @@ class TempProductController extends Controller
         $tempProduct->s_price      = $request->s_price;
         $tempProduct->quantity     = $request->quantity;
         $tempProduct->category_id  = $request->category_id;
-        $tempProduct->user_id      = Auth::User()->id;
+        // $tempProduct->user_id      = Auth::User()->id;
         $tempProduct->save();
         return response()->json([
             'status' => 200,
